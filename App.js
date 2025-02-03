@@ -2,20 +2,22 @@ import React from "react";
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import background from "./assets/imgs/background.png";
 import adventureMeter from "./assets/imgs/lightning.png";
-// import calendar from "./assets/imgs/calendar.png"
+import calendar from "./assets/imgs/calendar.png"
+import plus from "./assets/imgs/plus.png"
+import dots from "./assets/imgs/dots.png"
+import water from "./assets/imgs/water.png"
 // import home from "./assets/imgs/home.png"
+import racoon from "./assets/imgs/racoon.png"
 // import stats from "./assets/imgs/stats.png"
 // import settings from "./assets/imgs/settings.png"
-// import dots from "./assets/imgs/dots.png"
-// import water from "./assets/imgs/water.png"
-// import check from "./assets/imgs/check.png"
-// import uncheck from "./assets/imgs/uncheck.png"
-// import plus from "./assets/imgs/plus.png"
+import check from "./assets/imgs/check.png"
+import uncheck from "./assets/imgs/uncheck.png"
 
 export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.view}>
+        <Image source={racoon} style={styles.racoon} />
         <Image source={background} style={styles.bg} />
       </View>
       <View style={{ width: "100%" }}>
@@ -35,29 +37,38 @@ export default function App() {
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.notification}>
-          <Image style={styles.calendar} />
+          <Image source={calendar} style={styles.calendar} />
           <Text style={styles.notificationText}>4 goals for today</Text>
-          <Image style={styles.plus} />
+          <Image source={plus} style={styles.plus} />
         </View>
         <View style={styles.goal}>
-          <Image style={styles.water} />
-          <Text style={styles.check}>Drink a glass of water</Text>
-          <Image />
+          <Image source={dots} style={styles.dots} />
+          <Image source={water} style={styles.water} />
+          <Text style={styles.goalText}>Drink a glass of water</Text>
+          <Image source={check} style={styles.check} />
         </View>
         <View style={styles.goal}>
-          <Image style={styles.water} />
-          <Text style={styles.check}>Drink a glass of water</Text>
-          <Image />
+          <Image source={dots} style={styles.dots} />
+          <Image source={water} style={styles.water} />
+          <Text style={styles.goalText}>Drink a glass of water</Text>
+          <Image source={uncheck} style={styles.check} />
         </View>
         <View style={styles.goal}>
-          <Image style={styles.water} />
-          <Text style={styles.check}>Drink a glass of water</Text>
-          <Image />
+          <Image source={dots} style={styles.dots} />
+          <Image source={water} style={styles.water} />
+          <Text style={styles.goalText}>Drink a glass of water</Text>
+          <Image source={check} style={styles.check} />
+        </View>
+        <View style={styles.goal}>
+          <Image source={dots} style={styles.dots} />
+          <Image source={water} style={styles.water} />
+          <Text style={styles.goalText}>Drink a glass of water</Text>
+          <Image source={uncheck} style={styles.check} />
         </View>
       </ScrollView>
       <View style={styles.menuBar}>
         <View style={styles.activeMenu}>
-          <Text>asd</Text>
+          <Text></Text>
         </View>
         <View style={styles.menuIcon}></View>
       </View>
@@ -66,6 +77,43 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+
+  goal: {
+    display: "flex",
+    width: "90%",
+    height: 80,
+    backgroundColor: "white",
+    borderRadius: 20,
+    marginBottom: 10,
+    margin: "auto",
+    alignContent: "center",
+    alignItems: "center",
+    flexDirection: "row"
+  },
+
+  goalText: {
+    width: "68%",
+  },
+
+  dots: {
+    marginRight: 15,
+    marginLeft: 5,
+    width: 4,
+    resizeMode: "contain"
+  },
+
+  water: {
+    marginRight: 10,
+    width: 36,
+    resizeMode: "contain"
+  },
+
+  check: {
+    width: 30,
+    resizeMode: "contain",
+    marginRight: 15
+  },
+
   container: {
     flex: 1,
     backgroundColor: "#A7C63C",
@@ -74,28 +122,31 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
   },
+
   view: {
     flex: 1,
     width: "100%",
   },
+
   bg: {
     padding: 0,
     width: "100%",
     height: 475,
     margin: 0,
     resizeMode: "contain",
+    position: "relative"
   },
-  notification: {
-    width: "90%",
-    height: 40,
-    backgroundColor: "blue",
-    justifyContent: "center",
-    alignSelf: "center",
-    margin: 10,
+
+  racoon: {
+    zIndex: 2,
+    position: "absolute",
+    bottom: 0,
+    left: 80,
+    width: 100,
+    height: 100,
+    resizeMode: "contain"
   },
-  notificationText: {
-    color: "white",
-  },
+
   name: {
     color: "white",
     fontWeight: "bold",
@@ -123,7 +174,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: "auto",
     resizeMode: "contain",
-    marginLeft:15,
+    marginLeft: 15,
   },
 
   adventureLevelWrapper: {
@@ -149,8 +200,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 4,
   },
-  
-  adventureCount: { 
+
+  adventureCount: {
     color: "#ca8f08",
     width: "100%",
     textAlign: "center",
@@ -178,21 +229,42 @@ const styles = StyleSheet.create({
     top: 2
   },
 
+  notification: {
+    width: "90%",
+    height: 40,
+    gap: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    margin: "auto",
+    marginBlock: 7,
+  },
+
+  calendar: {
+    width: 20,
+    height: 20,
+    marginLeft: 10,
+  },
+
+  notificationText: {
+    color: "white",
+    fontWeight: "bold",
+    flex: 1
+  },
+
+  plus: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+
   scrollView: {
     width: "100%",
     maxHeight: "40.5%",
     display: "flex",
   },
-  goal: {
-    width: "90%",
-    height: 80,
-    backgroundColor: "white",
-    borderRadius: 20,
-    marginBottom: 10,
-    margin: "auto",
-    justifyContent: "center",
-    padding: 30,
-  },
+
   menuBar: {
     padding: 0,
     margin: 0,
@@ -201,6 +273,7 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
     position: "relative",
   },
+
   activeMenu: {
     width: 60,
     height: 60,
@@ -214,8 +287,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
   },
+
   menuIcon: {
     width: 60,
     height: 60,
   }
+
 });
