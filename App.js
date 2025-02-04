@@ -65,6 +65,24 @@ export default function App() {
           <Text style={styles.goalText}>Drink a glass of water</Text>
           <Image source={uncheck} style={styles.check} />
         </View>
+        <View style={styles.goal}>
+          <Image source={dots} style={styles.dots} />
+          <Image source={water} style={styles.water} />
+          <Text style={styles.goalText}>Drink a glass of water</Text>
+          <Image source={uncheck} style={styles.check} />
+        </View>
+        <View style={styles.goal}>
+          <Image source={dots} style={styles.dots} />
+          <Image source={water} style={styles.water} />
+          <Text style={styles.goalText}>Drink a glass of water</Text>
+          <Image source={uncheck} style={styles.check} />
+        </View>
+        <View style={styles.goal}>
+          <Image source={dots} style={styles.dots} />
+          <Image source={water} style={styles.water} />
+          <Text style={styles.goalText}>Drink a glass of water</Text>
+          <Image source={uncheck} style={styles.check} />
+        </View>
       </ScrollView>
       <View style={styles.menuBar}>
         <View style={styles.activeMenu}>
@@ -140,10 +158,10 @@ const styles = StyleSheet.create({
   racoon: {
     zIndex: 2,
     position: "absolute",
-    bottom: 0,
+    bottom: 90,
     left: 80,
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 130,
     resizeMode: "contain"
   },
 
