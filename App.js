@@ -2,16 +2,18 @@ import React from "react";
 import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 import background from "./assets/imgs/background.png";
 import adventureMeter from "./assets/imgs/lightning.png";
-import calendar from "./assets/imgs/calendar.png"
-import plus from "./assets/imgs/plus.png"
-import dots from "./assets/imgs/dots.png"
-import water from "./assets/imgs/water.png"
-// import home from "./assets/imgs/home.png"
-import racoon from "./assets/imgs/racoon.png"
-// import stats from "./assets/imgs/stats.png"
-// import settings from "./assets/imgs/settings.png"
-import check from "./assets/imgs/check.png"
-import uncheck from "./assets/imgs/uncheck.png"
+import calendar from "./assets/imgs/calendar.png";
+import plus from "./assets/imgs/plus.png";
+import dots from "./assets/imgs/dots.png";
+import water from "./assets/imgs/water.png";
+import home from "./assets/imgs/home.png";
+import todo from "./assets/imgs/todo.png";
+import notes from "./assets/imgs/notes.png";
+import settings from "./assets/imgs/settings.png";
+import stats from "./assets/imgs/stats.png";
+import racoon from "./assets/imgs/racoon.png";
+import check from "./assets/imgs/check.png";
+import uncheck from "./assets/imgs/uncheck.png";
 
 export default function App() {
   return (
@@ -85,17 +87,18 @@ export default function App() {
         </View>
       </ScrollView>
       <View style={styles.menuBar}>
-        <View style={styles.activeMenu}>
-          <Text></Text>
-        </View>
-        <View style={styles.menuIcon}></View>
+        <View style={styles.activeMenu}></View>
+        <Image source={notes} style={styles.icons} />
+        <Image source={todo} style={styles.icons} />
+        <Image source={home} style={[styles.icons, styles.activeIcon]} />
+        <Image source={stats} style={styles.icons} />
+        <Image source={settings} style={styles.icons} />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
   goal: {
     display: "flex",
     width: "90%",
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
     margin: "auto",
     alignContent: "center",
     alignItems: "center",
-    flexDirection: "row"
+    flexDirection: "row",
   },
 
   goalText: {
@@ -117,19 +120,18 @@ const styles = StyleSheet.create({
     marginRight: 15,
     marginLeft: 5,
     width: 4,
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
 
   water: {
     marginRight: 10,
     width: 36,
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
 
   check: {
     width: 30,
     resizeMode: "contain",
-    marginRight: 15
   },
 
   container: {
@@ -152,17 +154,17 @@ const styles = StyleSheet.create({
     height: 475,
     margin: 0,
     resizeMode: "contain",
-    position: "relative"
+    position: "relative",
   },
 
   racoon: {
     zIndex: 2,
     position: "absolute",
-    bottom: 90,
-    left: 80,
+    bottom: "15%",
+    left: "20%",
     width: 130,
     height: 130,
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
 
   name: {
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     position: "absolute",
     top: -10,
-    left: 10
+    left: 10,
   },
 
   adventures: {
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
     gap: 10,
     alignSelf: "center",
     paddingBottom: 1,
-    position: "relative"
+    position: "relative",
   },
 
   adventureMeter: {
@@ -199,7 +201,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     verticalAlign: "middle",
-    width: "95%"
+    width: "95%",
   },
 
   statusBar: {
@@ -210,7 +212,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     //backgroundColor: "#ca8f08",
     height: 20,
-    borderRadius: 18
+    borderRadius: 18,
   },
 
   adventureTitle: {
@@ -224,7 +226,7 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
     position: "absolute",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 
   statusBarProgress: {
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     position: "relative",
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
   },
 
   statusBarLight: {
@@ -244,7 +246,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: "90%",
     height: 2,
-    top: 2
+    top: 2,
   },
 
   notification: {
@@ -268,7 +270,7 @@ const styles = StyleSheet.create({
   notificationText: {
     color: "white",
     fontWeight: "bold",
-    flex: 1
+    flex: 1,
   },
 
   plus: {
@@ -283,32 +285,38 @@ const styles = StyleSheet.create({
     display: "flex",
   },
 
+  icons: {
+    width: 35,
+    height: 35,
+  },
+
   menuBar: {
     padding: 0,
     margin: 0,
     width: "100%",
     height: 50,
-    backgroundColor: "green",
+    backgroundColor: "#FFDB8E",
     position: "relative",
-  },
-
-  activeMenu: {
-    width: 60,
-    height: 60,
-    backgroundColor: "yellow",
-    borderRadius: "50%",
-    position: "relative",
-    bottom: 20,
-    padding: 0,
-    margin: 0,
-    justifyContent: "center",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    alignSelf: "center",
+    paddingLeft: 15,
+    paddingRight: 15,
   },
 
-  menuIcon: {
+  activeMenu:{
     width: 60,
     height: 60,
-  }
+    backgroundColor: "#FFDB8E",
+    borderRadius: 50,
+    position: "absolute",
+    bottom: 10,
+    left: 150,
+  },
+
+  activeIcon: {
+    bottom: 15,
+  },
 
 });
