@@ -1,5 +1,14 @@
-import React from "react";
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  Animated,
+  Easing,
+} from "react-native";
 import background from "./assets/imgs/background.png";
 import adventureMeter from "./assets/imgs/lightning.png";
 import calendar from "./assets/imgs/calendar.png";
@@ -14,8 +23,45 @@ import stats from "./assets/imgs/stats.png";
 import racoon from "./assets/imgs/racoon.png";
 import check from "./assets/imgs/check.png";
 import uncheck from "./assets/imgs/uncheck.png";
+import { Button } from "react-native";
 
 export default function App() {
+  const [count, setCount] = useState(0);
+
+  const values = [-182, -98, -15, 67, 153];
+
+  const animatedTranslateX = useRef(new Animated.Value(values[0])).current;
+  const animatedTranslateYs = useRef([
+    new Animated.Value(0),
+    new Animated.Value(0),
+    new Animated.Value(0),
+    new Animated.Value(0),
+    new Animated.Value(0),
+  ]).current;
+
+  const handlePress = () => {
+    setCount((prev) => (prev + 1) % 5);
+  };
+
+  useEffect(() => {
+    Animated.timing(animatedTranslateX, {
+      toValue: values[count],
+      duration: 500,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: true,
+    }).start();
+
+    const iconAnimations = animatedTranslateYs.map((_, index) =>
+      Animated.timing(animatedTranslateYs[index], {
+        toValue: count === index ? -10 : 0,
+        duration: 300,
+        useNativeDriver: true,
+      })
+    );
+
+    Animated.stagger(100, iconAnimations).start();
+  }, [count]);
+
   return (
     <View style={styles.container}>
       <View style={styles.view}>
@@ -23,9 +69,10 @@ export default function App() {
         <Image source={background} style={styles.bg} />
       </View>
       <View style={{ width: "100%" }}>
+        <Button title="increase" onPress={handlePress} />
         <View style={styles.adventures}>
           <Text style={styles.name}>Waffles</Text>
-          <Image source={adventureMeter} style={styles.adventureMeter}></Image>
+          <Image source={adventureMeter} style={styles.adventureMeter} />
           <View style={styles.adventureLevelWrapper}>
             <Text style={styles.adventureTitle}>1st Adventure</Text>
             <View style={styles.statusBar}>
@@ -87,12 +134,26 @@ export default function App() {
         </View>
       </ScrollView>
       <View style={styles.menuBar}>
-        <View style={styles.activeMenu}></View>
-        <Image source={notes} style={styles.icons} />
-        <Image source={todo} style={styles.icons} />
-        <Image source={home} style={[styles.icons, styles.activeIcon]} />
-        <Image source={stats} style={styles.icons} />
-        <Image source={settings} style={styles.icons} />
+        <Animated.View
+          style={[
+            styles.activeMenu,
+            {
+              transform: [{ translateX: animatedTranslateX }],
+            },
+          ]}
+        />
+        {[notes, todo, home, stats, settings].map((icon, index) => (
+          <Animated.View
+            key={index}
+            style={[
+              {
+                transform: [{ translateY: animatedTranslateYs[index] }],
+              },
+            ]}
+          >
+            <Image source={icon} style={styles.icons} />
+          </Animated.View>
+        ))}
       </View>
     </View>
   );
@@ -106,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     marginBottom: 10,
-    margin: "auto",
+    alignSelf: "center",
     alignContent: "center",
     alignItems: "center",
     flexDirection: "row",
@@ -210,7 +271,6 @@ const styles = StyleSheet.create({
     marginRight: 70,
     backgroundColor: "white",
     justifyContent: "center",
-    //backgroundColor: "#ca8f08",
     height: 20,
     borderRadius: 18,
   },
@@ -305,18 +365,17 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
 
-  activeMenu:{
-    width: 60,
-    height: 60,
+  activeMenu: {
+    padding: 30,
     backgroundColor: "#FFDB8E",
     borderRadius: 50,
     position: "absolute",
     bottom: 10,
-    left: 150,
+    left: "50%",
+    transition: "left 2s ease-in-out",
   },
 
   activeIcon: {
     bottom: 15,
   },
-
 });
