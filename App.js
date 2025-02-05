@@ -5,9 +5,8 @@ import {
   View,
   Image,
   ScrollView,
-  TouchableOpacity,
   Animated,
-  Easing,
+  Easing,Dimensions,
 } from "react-native";
 import background from "./assets/imgs/background.png";
 import adventureMeter from "./assets/imgs/lightning.png";
@@ -25,10 +24,12 @@ import check from "./assets/imgs/check.png";
 import uncheck from "./assets/imgs/uncheck.png";
 import { Button } from "react-native";
 
+const { width } = Dimensions.get('window');
+
 export default function App() {
   const [count, setCount] = useState(0);
 
-  const values = [-182, -98, -15, 67, 153];
+  const values = [-0.46 * width, -0.245 * width, -0.04 * width, 0.165 * width, 0.37 * width];
 
   const animatedTranslateX = useRef(new Animated.Value(values[0])).current;
   const animatedTranslateYs = useRef([
@@ -54,7 +55,7 @@ export default function App() {
     const iconAnimations = animatedTranslateYs.map((_, index) =>
       Animated.timing(animatedTranslateYs[index], {
         toValue: count === index ? -10 : 0,
-        duration: 300,
+        duration: 500,
         useNativeDriver: true,
       })
     );
