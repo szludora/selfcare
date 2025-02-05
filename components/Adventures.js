@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Animated } from "react-native";
 import adventureMeter from "../assets/imgs/lightning.png";
 
 export default function Adventures() {
@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
   },
 
   adventures: {
+    display: "flex",
     width: "90%",
     height: 80,
     backgroundColor: "rgba(94, 107, 40, .42)",
     borderRadius: 20,
-    display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
     verticalAlign: "middle",
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingBottom: 1,
     position: "relative",
+    marginTop: 79,
   },
 
   adventureMeter: {

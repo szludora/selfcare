@@ -104,13 +104,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     backgroundColor: "#FFDB8E",
-    position: "relative",
+    position: "absolute",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingLeft: 15,
     paddingRight: 15,
+    bottom: 0,
   },
 
   activeMenu: {

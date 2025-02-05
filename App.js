@@ -1,17 +1,19 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useRef } from "react";
+import { Animated, StyleSheet, View } from "react-native";
 
 import MenuBar from "./components/MenuBar";
 import Goals from "./components/Goals";
-import Adventures from "./components/Adventures";
 import RacoonBg from "./components/RacoonBg";
 
 export default function App() {
+  const pushAnim = useRef(new Animated.Value(0)).current;
+  const pushBg = useRef(new Animated.Value(0)).current;
+  console.log(pushBg);
+
   return (
     <View style={styles.container}>
-      <RacoonBg />
-      <Adventures />
-      <Goals />
+      <RacoonBg pushAnim={pushAnim} pushBg={pushBg} />
+      <Goals pushAnim={pushAnim} pushBg={pushBg} />
       <MenuBar />
     </View>
   );

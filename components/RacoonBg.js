@@ -1,18 +1,39 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Animated, Dimensions } from "react-native";
 import racoon from "../assets/imgs/racoon.png";
 import background from "../assets/imgs/background.png";
 
-export default function RacoonBg() {
+const { width, height } = Dimensions.get("window");
+
+export default function RacoonBg({ pushBg, pushAnim }) {
+  console.log(width, height);
+
   return (
-    <View style={styles.view}>
-      <Image source={racoon} style={styles.racoon} />
-      <Image source={background} style={styles.bg} />
-    </View>
+    <Animated.View
+      style={[
+        styles.animated,
+        {
+          transform: [{ translateY: pushBg }],
+        },
+      ]}
+    >
+      <View style={styles.view}>
+        <Image source={racoon} style={styles.racoon} />
+        <Image source={background} style={styles.bg} />
+      </View>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
+  animated: {
+    width: width,
+    height: height * 0.4,
+    backgroundColor: "red",
+    position: "absolute",
+    top: 0,
+  },
+
   view: {
     flex: 1,
     width: "100%",
@@ -20,20 +41,19 @@ const styles = StyleSheet.create({
 
   bg: {
     padding: 0,
-    width: "100%",
-    height: 475,
+    width: width,
+    height: height * 0.525,
     margin: 0,
-    resizeMode: "contain",
+    resizeMode: "cover",
     position: "relative",
   },
 
   racoon: {
     zIndex: 2,
     position: "absolute",
-    bottom: "15%",
-    left: "20%",
-    width: 130,
-    height: 130,
+    transform: [{ translateX: width * 0.25 }, { translateY: height * 0.16 }],
+    width: height * 0.15,
+    height: height * 0.15,
     resizeMode: "contain",
   },
 });
