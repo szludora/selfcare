@@ -6,7 +6,9 @@ import {
   Image,
   ScrollView,
   Animated,
-  Easing,Dimensions,
+  Easing,
+  Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import background from "./assets/imgs/background.png";
 import adventureMeter from "./assets/imgs/lightning.png";
@@ -24,12 +26,18 @@ import check from "./assets/imgs/check.png";
 import uncheck from "./assets/imgs/uncheck.png";
 import { Button } from "react-native";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 export default function App() {
   const [count, setCount] = useState(0);
 
-  const values = [-0.46 * width, -0.245 * width, -0.04 * width, 0.165 * width, 0.37 * width];
+  const values = [
+    -0.46 * width,
+    -0.245 * width,
+    -0.04 * width,
+    0.165 * width,
+    0.37 * width,
+  ];
 
   const animatedTranslateX = useRef(new Animated.Value(values[0])).current;
   const animatedTranslateYs = useRef([
@@ -40,8 +48,8 @@ export default function App() {
     new Animated.Value(0),
   ]).current;
 
-  const handlePress = () => {
-    setCount((prev) => (prev + 1) % 5);
+  const handlePress = (index) => {
+    setCount(index);
   };
 
   useEffect(() => {
@@ -70,7 +78,6 @@ export default function App() {
         <Image source={background} style={styles.bg} />
       </View>
       <View style={{ width: "100%" }}>
-        <Button title="increase" onPress={handlePress} />
         <View style={styles.adventures}>
           <Text style={styles.name}>Waffles</Text>
           <Image source={adventureMeter} style={styles.adventureMeter} />
@@ -144,16 +151,22 @@ export default function App() {
           ]}
         />
         {[notes, todo, home, stats, settings].map((icon, index) => (
-          <Animated.View
+          <TouchableOpacity
             key={index}
-            style={[
-              {
-                transform: [{ translateY: animatedTranslateYs[index] }],
-              },
-            ]}
+            onPress={() => {
+              handlePress(index);
+            }}
           >
-            <Image source={icon} style={styles.icons} />
-          </Animated.View>
+            <Animated.View
+              style={[
+                {
+                  transform: [{ translateY: animatedTranslateYs[index] }],
+                },
+              ]}
+            >
+              <Image source={icon} style={styles.icons} />
+            </Animated.View>
+          </TouchableOpacity>
         ))}
       </View>
     </View>
