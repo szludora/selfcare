@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import adventureMeter from "../assets/imgs/lightning.png";
 
 export default function Adventures({countGoals, countDoneGoals}) {
-  console.log("asdasdasda", countGoals);
   
   return (
     <View style={styles.adventures}>
@@ -12,7 +11,7 @@ export default function Adventures({countGoals, countDoneGoals}) {
       <View style={styles.adventureLevelWrapper}>
         <Text style={styles.adventureTitle}>1st Adventure</Text>
         <View style={styles.statusBar}>
-          <View style={[styles.statusBarProgress, {width: `${countDoneGoals/countGoals * 100 - 2.2}%`}]}>
+          <View style={[styles.statusBarProgress, {width: !countDoneGoals ? 0 : `${countDoneGoals/countGoals * 100 - 2.2}%`}]}>
             <View style={styles.statusBarLight}></View>
           </View>
           <Text style={styles.adventureCount}>{countDoneGoals} / {countGoals} </Text>
@@ -86,6 +85,7 @@ const styles = StyleSheet.create({
 
   statusBarProgress: {
     backgroundColor: "#FFB100",
+    width: 0,
     height: "70%",
     marginLeft: 3,
     borderRadius: 18,
