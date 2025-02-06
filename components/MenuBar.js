@@ -18,7 +18,7 @@ const icons = [notes, todo, home, stats, settings];
 const { width } = Dimensions.get("window");
 
 export default function MenuBar() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(2);
 
   const values = [
     -0.46 * width,

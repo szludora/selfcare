@@ -1,0 +1,39 @@
+{
+  "goals": [
+    {
+      "id": 1,
+      "source": "water",
+      "text": "Drink more water",
+      "date": "2025-02-06",
+      "isDone": true
+    },
+    {
+      "id": 2,
+      "source": "water",
+      "text": "Complete daily tasks",
+      "date": "2025-02-07",
+      "isDone": false
+    },
+    {
+      "id": 3,
+      "source": "water",
+      "text": "Meditate for 10 minutes",
+      "date": "2025-02-08",
+      "isDone": true
+    },
+    {
+      "id": 4,
+      "source": "water",
+      "text": "Workout for 30 minutes",
+      "date": "2025-02-09",
+      "isDone": false
+    },
+    {
+      "id": 5,
+      "source": "water",
+      "text": "Read a chapter of a book",
+      "date": "2025-02-10",
+      "isDone": true
+    }
+  ]
+}

@@ -10,16 +10,28 @@ import {
 } from "react-native";
 import calendar from "../assets/imgs/calendar.png";
 import plus from "../assets/imgs/plus.png";
-import dots from "../assets/imgs/dots.png";
-import water from "../assets/imgs/water.png";
-import check from "../assets/imgs/check.png";
-import uncheck from "../assets/imgs/uncheck.png";
+// import dots from "../assets/imgs/dots.png";
+// import water from "../assets/imgs/water.png";
+// import check from "../assets/imgs/check.png";
+// import uncheck from "../assets/imgs/uncheck.png";
 import Adventures from "../components/Adventures";
+import goalList from "./goalList.json";
+import Goal from "../components/Goal";
 
 const MAX_SCROLL_Y = 240;
 const { height } = Dimensions.get("window");
 
 export default function Goals({ pushAnim, pushBg }) {
+  const GoalComponents = [];
+  for (const data in goalList.goals) {
+    
+    const element = goalList.goals[data];
+    GoalComponents.push(element);
+  }
+
+  
+
+
   const getMaxHeight = (count) => {
     if (count === 3) return height * 0.27;
     if (count === 4) return height * 0.32;
@@ -99,30 +111,18 @@ export default function Goals({ pushAnim, pushBg }) {
           <Image source={plus} style={styles.plus} />
         </View>
         <ScrollView
-          style={[styles.scrollView, { maxHeight: getMaxHeight(3) }]}
+          style={[
+            styles.scrollView,
+            { maxHeight: getMaxHeight(goalList.goals.length) },
+          ]}
           onScroll={handleScroll}
           scrollEventThrottle={10}
           onScrollEndDrag={handleScrollEndDrag}
         >
-          <View style={styles.goal}>
-            <Image source={dots} style={styles.dots} />
-            <Image source={water} style={styles.water} />
-            <Text style={styles.goalText}>Drink a glass of water</Text>
-            <Image source={check} style={styles.check} />
-          </View>
-          <View style={styles.goal}>
-            <Image source={dots} style={styles.dots} />
-            <Image source={water} style={styles.water} />
-            <Text style={styles.goalText}>Drink a glass of water</Text>
-            <Image source={uncheck} style={styles.check} />
-          </View>
-          <View style={styles.goal}>
-            <Image source={dots} style={styles.dots} />
-            <Image source={water} style={styles.water} />
-            <Text style={styles.goalText}>Drink a glass of water</Text>
-            <Image source={uncheck} style={styles.check} />
-            <Text>Engem kellene láss</Text>
-          </View>
+          {goalList.goals.map((goal, index) => (
+            <Goal key={index} data={goal} />
+          ))}
+          <Text>Engem kellene láss</Text>
         </ScrollView>
       </Animated.View>
     </>
