@@ -8,7 +8,6 @@ import RacoonBg from "./components/RacoonBg";
 export default function App() {
   const pushAnim = useRef(new Animated.Value(0)).current;
   const pushBg = useRef(new Animated.Value(0)).current;
-  console.log(pushBg);
 
   return (
     <View style={styles.container}>

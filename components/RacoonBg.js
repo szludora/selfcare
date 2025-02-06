@@ -6,7 +6,6 @@ import background from "../assets/imgs/background.png";
 const { width, height } = Dimensions.get("window");
 
 export default function RacoonBg({ pushBg, pushAnim }) {
-  console.log(width, height);
 
   return (
     <Animated.View
@@ -29,7 +28,6 @@ const styles = StyleSheet.create({
   animated: {
     width: width,
     height: height * 0.4,
-    backgroundColor: "red",
     position: "absolute",
     top: 0,
   },

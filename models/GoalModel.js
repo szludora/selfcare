@@ -17,21 +17,40 @@ export default class GoalModel {
   getId() {
     return this.#id;
   }
-  
+
   getText() {
     return this.#text;
   }
-  
+
   getSource() {
     return this.#source;
   }
-  
+
   getDate() {
     return this.#date;
   }
-  
+
   getIsDone() {
     return this.#isDone;
   }
-  
+
+  setId(value) {
+    return (this.#id = value);
+  }
+
+  setText(value) {
+    return (this.#text = value);
+  }
+
+  setSource(value) {
+    return (this.#source = value);
+  }
+
+  setDate(value) {
+    return (this.#date = value);
+  }
+
+  setIsDone(value) {
+    return (this.#isDone = value);
+  }
 }

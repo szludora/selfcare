@@ -1,112 +1,45 @@
-import React, { useReducer, useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, TouchableHighlight } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableHighlight,
+} from "react-native";
 import dots from "../assets/imgs/dots.png";
 import check from "../assets/imgs/check.png";
 import uncheck from "../assets/imgs/uncheck.png";
-import GoalModel from "../models/GoalModel";
-
-const ACTIONS = {
-  setState: "setState",
-  setID: "setID",
-  setDate: "setDate",
-  toggleIsDone: "toggleIsDone",
-  changeSource: "changeSource",
-  changeText: "changeText",
-};
-
-const initialState = { date: "2000", text: "", source: "water", isDone: false };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case ACTIONS.setState: {
-      return {
-        ...state,
-        id: action.id,
-        date: action.date,
-        isDone: action.isDone,
-        text: action.text,
-        source: action.source,
-      };
-    }
-    case ACTIONS.setID: {
-      return {
-        ...state,
-        id: action.id,
-      };
-    }
-    case ACTIONS.setDate: {
-      return {
-        ...state,
-        date: action.date,
-      };
-    }
-    case ACTIONS.toggleIsDone: {
-      return {
-        ...state,
-        isDone: action.isDone,
-      };
-    }
-    case ACTIONS.changeText: {
-      return {
-        ...state,
-        text: action.text,
-      };
-    }
-    case ACTIONS.changeSource: {
-      return {
-        ...state,
-        source: action.source,
-      };
-    }
-    default:
-      return state;
-  }
-}
 
 const images = {
   water: require("../assets/imgs/water.png"),
+  exercise: require("../assets/imgs/exercise.png"),
+  food: require("../assets/imgs/food.png"),
+  study: require("../assets/imgs/study.png"),
   plus: require("../assets/imgs/plus.png"),
   calendar: require("../assets/imgs/calendar.png"),
 };
 
-export default function Goal({ data }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const model = new GoalModel(
-    data.id,
-    data.text,
-    data.source,
-    data.date,
-    data.isDone
-  );
-
-  console.log("asd",data);
-  
-  useEffect(() => {
-    dispatch({
-      type: ACTIONS.setState,
-      id: model.getId(),
-      text: model.getText(),
-      source: model.getSource(),
-      date: model.getDate(),
-      isDone: model.getIsDone(),
-    });
-    console.log(state);
-    
-  }, []);
-
+export default function Goal({ data, setCountDoneGoals }) {
+  const [isDone, setIsDone] = useState(data.isDone);
 
   const handlePress = () => {
-    dispatch({type: ACTIONS.toggleIsDone, isDone: !state.isDone})
-  }
+    if (!isDone) {
+      setCountDoneGoals((prev) => prev + 1);
+    } else {
+      setCountDoneGoals((prev) => prev - 1);
+    }
+    data.isDone = !isDone;
+    
+    setIsDone((prev) => !prev);
+  };
 
   return (
     <View style={styles.goal}>
       <Image source={dots} style={styles.dots} />
-      <Image source={images[state.source]} style={styles.water} />
-      <Text style={styles.goalText}>{state.text}</Text>
+      <Image source={images[data.source]} style={styles.water} />
+      <Text style={styles.goalText}>{data.text}</Text>
       <TouchableHighlight onPress={handlePress} underlayColor="transparent">
-      <Image source={state.isDone ? check : uncheck} style={styles.check}/>
+        <Image source={isDone ? check : uncheck} style={styles.check} />
       </TouchableHighlight>
     </View>
   );
@@ -121,9 +54,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 10,
     alignSelf: "center",
-    alignContent: "center",
     alignItems: "center",
     flexDirection: "row",
+    paddingHorizontal: 10,
   },
 
   goalText: {
