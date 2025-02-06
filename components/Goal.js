@@ -71,6 +71,7 @@ const images = {
 
 export default function Goal({ data }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const model = new GoalModel(
     data.id,
     data.text,
@@ -79,6 +80,8 @@ export default function Goal({ data }) {
     data.isDone
   );
 
+  console.log("asd",data);
+  
   useEffect(() => {
     dispatch({
       type: ACTIONS.setState,

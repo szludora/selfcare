@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,7 @@ import {
   ScrollView,
   Animated,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import calendar from "../assets/imgs/calendar.png";
 import plus from "../assets/imgs/plus.png";
@@ -22,15 +23,22 @@ const MAX_SCROLL_Y = 240;
 const { height } = Dimensions.get("window");
 
 export default function Goals({ pushAnim, pushBg }) {
-  const GoalComponents = [];
-  for (const data in goalList.goals) {
-    
-    const element = goalList.goals[data];
-    GoalComponents.push(element);
-  }
+  const [GoalComponents, setGoalComponents] = useState(goalList.goals);
 
-  
+  useEffect(() => {}, [GoalComponents]);
 
+  const initialState = {
+    date: "today",
+    text: "",
+    source: "water",
+    isDone: false,
+  };
+
+  const handlePress = () => {
+    let oldID = GoalComponents[GoalComponents.length - 1].id;
+    initialState.id = oldID + 1;
+    setGoalComponents((prev) => [...prev, initialState]);
+  };
 
   const getMaxHeight = (count) => {
     if (count === 3) return height * 0.27;
@@ -108,20 +116,23 @@ export default function Goals({ pushAnim, pushBg }) {
         <View style={styles.notification}>
           <Image source={calendar} style={styles.calendar} />
           <Text style={styles.notificationText}>4 goals for today</Text>
-          <Image source={plus} style={styles.plus} />
+          <TouchableOpacity onPress={handlePress}>
+            <Image source={plus} style={styles.plus} />
+          </TouchableOpacity>
         </View>
         <ScrollView
           style={[
             styles.scrollView,
-            { maxHeight: getMaxHeight(goalList.goals.length) },
+            { maxHeight: getMaxHeight(GoalComponents.length) },
           ]}
           onScroll={handleScroll}
           scrollEventThrottle={10}
           onScrollEndDrag={handleScrollEndDrag}
         >
-          {goalList.goals.map((goal, index) => (
-            <Goal key={index} data={goal} />
-          ))}
+          {GoalComponents.map((goal, index) => {
+            return <Goal key={index} data={goal} />;
+          })}
+
           <Text>Engem kellene láss</Text>
         </ScrollView>
       </Animated.View>
