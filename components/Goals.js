@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Animated,
+  Dimensions,
 } from "react-native";
 import calendar from "../assets/imgs/calendar.png";
 import plus from "../assets/imgs/plus.png";
@@ -16,8 +17,17 @@ import uncheck from "../assets/imgs/uncheck.png";
 import Adventures from "../components/Adventures";
 
 const MAX_SCROLL_Y = 240;
+const { height } = Dimensions.get("window");
 
 export default function Goals({ pushAnim, pushBg }) {
+  const getMaxHeight = (count) => {
+    if (count === 3) return height * 0.27;
+    if (count === 4) return height * 0.32;
+    if (count === 5) return height * 0.37;
+    if (count === 6) return height * 0.42;
+    return height * 0.47;
+  };
+
   const handleScrollEndDrag = (event) => {
     const contentOffsetY = event.nativeEvent.contentOffset.y;
     const velocity = event.nativeEvent.velocity.y;
@@ -89,7 +99,7 @@ export default function Goals({ pushAnim, pushBg }) {
           <Image source={plus} style={styles.plus} />
         </View>
         <ScrollView
-          style={styles.scrollView}
+          style={[styles.scrollView, { maxHeight: getMaxHeight(3) }]}
           onScroll={handleScroll}
           scrollEventThrottle={10}
           onScrollEndDrag={handleScrollEndDrag}
@@ -110,31 +120,8 @@ export default function Goals({ pushAnim, pushBg }) {
             <Image source={dots} style={styles.dots} />
             <Image source={water} style={styles.water} />
             <Text style={styles.goalText}>Drink a glass of water</Text>
-            <Image source={check} style={styles.check} />
-          </View>
-          <View style={styles.goal}>
-            <Image source={dots} style={styles.dots} />
-            <Image source={water} style={styles.water} />
-            <Text style={styles.goalText}>Drink a glass of water</Text>
             <Image source={uncheck} style={styles.check} />
-          </View>
-          <View style={styles.goal}>
-            <Image source={dots} style={styles.dots} />
-            <Image source={water} style={styles.water} />
-            <Text style={styles.goalText}>Drink a glass of water</Text>
-            <Image source={uncheck} style={styles.check} />
-          </View>
-          <View style={styles.goal}>
-            <Image source={dots} style={styles.dots} />
-            <Image source={water} style={styles.water} />
-            <Text style={styles.goalText}>Drink a glass of water</Text>
-            <Image source={uncheck} style={styles.check} />
-          </View>
-          <View style={styles.goal}>
-            <Image source={dots} style={styles.dots} />
-            <Image source={water} style={styles.water} />
-            <Text style={styles.goalText}>Drink a glass of water</Text>
-            <Image source={uncheck} style={styles.check} />
+            <Text>Engem kellene láss</Text>
           </View>
         </ScrollView>
       </Animated.View>
@@ -161,7 +148,6 @@ const styles = StyleSheet.create({
 
   scrollView: {
     display: "flex",
-    maxHeight: "50%",
   },
 
   notification: {
