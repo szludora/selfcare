@@ -1,9 +1,18 @@
-import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, Image, Animated } from "react-native";
 import adventureMeter from "../assets/imgs/lightning.png";
 
-export default function Adventures({countGoals, countDoneGoals}) {
-  
+export default function Adventures({ countGoals, countDoneGoals }) {
+  const progressWidth = new Animated.Value(0);
+
+  useEffect(() => {
+    Animated.timing(progressWidth, {
+      toValue: (countDoneGoals / countGoals) * 100,
+      duration: 1500,
+      useNativeDriver: false,
+    }).start();
+  }, [countDoneGoals, countGoals]);
+
   return (
     <View style={styles.adventures}>
       <Text style={styles.name}>Waffles</Text>
@@ -11,15 +20,28 @@ export default function Adventures({countGoals, countDoneGoals}) {
       <View style={styles.adventureLevelWrapper}>
         <Text style={styles.adventureTitle}>1st Adventure</Text>
         <View style={styles.statusBar}>
-          <View style={[styles.statusBarProgress, {width: !countDoneGoals ? 0 : `${countDoneGoals/countGoals * 100 - 2.2}%`}]}>
+          <Animated.View
+            style={[
+              styles.statusBarProgress,
+              {
+                width: progressWidth.interpolate({
+                  inputRange: [0, 100],
+                  outputRange: ["0%", "100%"],
+                }),
+              },
+            ]}
+          >
             <View style={styles.statusBarLight}></View>
-          </View>
-          <Text style={styles.adventureCount}>{countDoneGoals} / {countGoals} </Text>
+          </Animated.View>
+          <Text style={styles.adventureCount}>
+            {countDoneGoals} / {countGoals}
+          </Text>
         </View>
       </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   name: {
     color: "white",
@@ -63,6 +85,7 @@ const styles = StyleSheet.create({
     display: "flex",
     width: "auto",
     marginRight: 70,
+    paddingInline: 3,
     backgroundColor: "white",
     justifyContent: "center",
     height: 20,
@@ -76,7 +99,7 @@ const styles = StyleSheet.create({
   },
 
   adventureCount: {
-    color: "#ca8f08",
+    color: "rgb(154, 105, 0)",
     width: "100%",
     textAlign: "center",
     position: "absolute",
@@ -87,7 +110,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFB100",
     width: 0,
     height: "70%",
-    marginLeft: 3,
     borderRadius: 18,
     position: "relative",
     display: "flex",
